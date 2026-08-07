@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Administração - Igreja</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #F1F5F9; }
+    .admin-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    .login-box { max-width: 400px; margin: 100px auto; background: white; padding: 32px; border-radius: 12px; box-shadow: var(--shadow-md); }
+    .admin-nav { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid #E2E8F0; overflow-x: auto; }
+    .admin-nav button { padding: 12px 20px; background: none; border: none; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .admin-nav button.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); }
+  </style>
+</head>
+<body>
+
+  <!-- Tela de Login -->
+  <div id="loginScreen" class="login-box">
+    <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-color);"><i class="fa-solid fa-lock"></i> Painel Administrativo</h2>
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px; font-size: 0.9rem;">Acesso restrito para a liderança e equipe técnica da igreja.</p>
+    <form id="formAdminLogin">
+      <div class="form-group">
+        <label>Usuário</label>
+        <input type="text" id="adminUser" required placeholder="admin">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="adminPass" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar no Painel</button>
+    </form>
+  </div>
+
+  <!-- Painel de Controle (Oculto até login) -->
+  <div id="adminPanel" class="admin-container" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <h2><i class="fa-solid fa-sliders"></i> Gerenciador de Conteúdo da Igreja</h2>
+      <button onclick="logoutAdmin()" class="btn btn-outline"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+    </div>
+
+    <div class="admin-nav">
+      <button class="active" onclick="showTab('tabInstitucional')">Institucional</button>
+      <button onclick="showTab('tabCultos')">Cultos</button>
+      <button onclick="showTab('tabMinisterios')">Ministérios</button>
+      <button onclick="showTab('tabEventos')">Eventos</button>
+      <button onclick="showTab('tabPix')">Dízimos/Pix</button>
+      <button onclick="showTab('tabOracoes')">Pedidos de Oração</button>
+    </div>
+
+    <!-- Tab Institucional -->
+    <div id="tabInstitucional" class="card">
+      <h3>Dados Gerais da Igreja</h3>
+      <div class="form-group">
+        <label>Nome Oficial da Igreja</label>
+        <input type="text" id="admNome" value="[INSERIR NOME OFICIAL DA IGREJA]">
+      </div>
+      <div class="form-group">
+        <label>Frase Lema / Hero</label>
+        <input type="text" id="admFrase" value="[INSERIR FRASE PRINCIPAL DA IGREJA]">
+      </div>
+      <div class="form-group">
+        <label>Endereço Completo</label>
+        <input type="text" id="admEndereco" value="[INSERIR ENDEREÇO COMPLETO DA IGREJA]">
+      </div>
+      <div class="form-group">
+        <label>WhatsApp Oficial</label>
+        <input type="text" id="admWhatsapp" value="[INSERIR NUMERO WHATSAPP]">
+      </div>
+      <button class="btn btn-primary" onclick="salvarConfig()"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
+    </div>
+
+    <!-- Tab Pix -->
+    <div id="tabPix" class="card" style="display: none;">
+      <h3>Dados de Contribuição</h3>
+      <div class="form-group">
+        <label>Chave Pix Oficial</label>
+        <input type="text" value="[INSERIR CHAVE PIX]">
+      </div>
+      <div class="form-group">
+        <label>Favorecido</label>
+        <input type="text" value="[INSERIR NOME DO FAVORECIDO DO PIX]">
+      </div>
+      <div class="form-group">
+        <label>Banco e Conta</label>
+        <input type="text" value="[INSERIR BANCO E AGÊNCIA/CONTA]">
+      </div>
+      <button class="btn btn-primary" onclick="alert('Dados salvos!')">Salvar Dados Pix</button>
+    </div>
+
+    <!-- Tab Pedidos de Oração -->
+    <div id="tabOracoes" class="card" style="display: none;">
+      <h3><i class="fa-solid fa-user-shield"></i> Pedidos de Oração Recebidos (Restrito)</h3>
+      <p style="color: var(--text-muted); margin-bottom: 16px;">Os pedidos enviados pelos visitantes aparecem exclusivamente nesta área sigilosa.</p>
+      <div style="background: #F8FAFC; padding: 16px; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+        <p><strong>Nenhum novo pedido no momento.</strong></p>
+      </div>
+    </div>
+
+    <!-- Outras tabs em esqueleto -->
+    <div id="tabCultos" class="card" style="display: none;">
+      <h3>Gerenciar Cultos</h3>
+      <p>Gerencie horários, descrições e públicos indicados.</p>
+      <button class="btn btn-primary" onclick="alert('Adicionar Culto')">+ Novo Culto</button>
+    </div>
+
+    <div id="tabMinisterios" class="card" style="display: none;">
+      <h3>Gerenciar Ministérios</h3>
+      <p>Cadastre e edite líderes e dias de reunião.</p>
+      <button class="btn btn-primary" onclick="alert('Adicionar Ministério')">+ Novo Ministério</button>
+    </div>
+
+    <div id="tabEventos" class="card" style="display: none;">
+      <h3>Gerenciar Eventos</h3>
+      <p>Cadastre conferências e acampamentos.</p>
+      <button class="btn btn-primary" onclick="alert('Adicionar Evento')">+ Novo Evento</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('formAdminLogin').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+    });
+
+    function logoutAdmin() {
+      document.getElementById('adminPanel').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'block';
+    }
+
+    function showTab(tabId) {
+      const tabs = ['tabInstitucional', 'tabCultos', 'tabMinisterios', 'tabEventos', 'tabPix', 'tabOracoes'];
+      tabs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = (id === tabId) ? 'block' : 'none';
+      });
+      document.querySelectorAll('.admin-nav button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function salvarConfig() {
+      alert('Configurações atualizadas com sucesso!');
+    }
+  </script>
+</body>
+</html>

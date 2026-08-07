@@ -1,0 +1,19 @@
+node_modules/
+dist/
+
+# Local environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and editor/system files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local tooling caches
+.vite/
+coverage/
+
