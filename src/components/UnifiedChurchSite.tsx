@@ -17,6 +17,8 @@ import {
 const WHATSAPP_URL = 'https://wa.me/554721258593';
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%20Vila%20Real%20Balne%C3%A1rio%20Cambori%C3%BA';
 const ASSET_ROOT = './images/site-unificado';
+const LATEST_SERVICE_VIDEO_ID = '7Yfv4lcvum8';
+const LATEST_SERVICE_URL = `https://www.youtube.com/watch?v=${LATEST_SERVICE_VIDEO_ID}`;
 
 const schedule = [
   { day: 'Domingo', time: '09h e 19h', title: 'Culto da Família' },
@@ -69,6 +71,7 @@ const channels = [
 
 const navItems = [
   { label: 'Programação', href: '#programacao' },
+  { label: 'Último culto', href: '#ultimo-culto' },
   { label: 'Ministérios', href: '#ministerios' },
   { label: 'Eventos', href: '#eventos' },
   { label: 'Contato', href: '#contato' },
@@ -222,6 +225,42 @@ export const UnifiedChurchSite: React.FC = () => {
             <div className="grid content-start gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <img src={`${ASSET_ROOT}/domingo-culto-familia.png`} alt="Arte do Culto da Família" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 bg-[#08101a] object-contain" />
               <img src={`${ASSET_ROOT}/oracao.png`} alt="Arte da Reunião de Oração" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 object-cover" />
+            </div>
+          </div>
+        </section>
+
+        <section id="ultimo-culto" className="scroll-mt-20 border-b border-white/10 bg-[#050812] py-20 sm:py-28">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:gap-14 lg:px-8">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Última transmissão</span>
+              <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+                Assista ao último culto<span className="text-brand-primary">.</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-400">
+                Acompanhe a mensagem mais recente do Ministério Internacional Graça e Poder.
+              </p>
+              <a
+                href={LATEST_SERVICE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-flex items-center gap-2 rounded-lg border border-brand-gold/70 px-6 py-4 font-bold text-white transition hover:bg-brand-gold/10"
+              >
+                <Youtube className="h-5 w-5 text-brand-gold" aria-hidden="true" />
+                Assistir no YouTube
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-black/40">
+              <iframe
+                className="aspect-video w-full border-0"
+                src={`https://www.youtube-nocookie.com/embed/${LATEST_SERVICE_VIDEO_ID}`}
+                title="Último culto do Ministério Internacional Graça e Poder"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </div>
           </div>
         </section>
