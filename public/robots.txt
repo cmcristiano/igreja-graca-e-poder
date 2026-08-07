@@ -1,0 +1,3 @@
+# Site provisório: liberar o rastreamento quando estiver pronto para divulgação.
+User-agent: *
+Disallow: /
