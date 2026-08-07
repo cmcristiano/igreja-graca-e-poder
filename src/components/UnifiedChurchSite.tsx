@@ -188,7 +188,7 @@ export const UnifiedChurchSite: React.FC = () => {
               <img
                 src={`${ASSET_ROOT}/domingo-culto-familia.png`}
                 alt="Culto da Família — domingo às 09h e 19h"
-                className="aspect-video w-full rounded-2xl border border-white/15 object-cover shadow-xl shadow-black/40"
+                className="aspect-video w-full rounded-2xl border border-white/15 bg-[#08101a] object-contain shadow-xl shadow-black/40"
               />
               <img
                 src={`${ASSET_ROOT}/the-way-projecao.jpg`}
@@ -220,7 +220,7 @@ export const UnifiedChurchSite: React.FC = () => {
             </div>
 
             <div className="grid content-start gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-              <img src={`${ASSET_ROOT}/domingo-culto-familia.png`} alt="Arte do Culto da Família" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 object-cover" />
+              <img src={`${ASSET_ROOT}/domingo-culto-familia.png`} alt="Arte do Culto da Família" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 bg-[#08101a] object-contain" />
               <img src={`${ASSET_ROOT}/oracao.png`} alt="Arte da Reunião de Oração" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 object-cover" />
             </div>
           </div>
