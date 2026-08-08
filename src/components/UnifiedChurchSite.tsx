@@ -14,6 +14,9 @@ import {
 } from 'lucide-react';
 
 const WHATSAPP_URL = 'https://wa.me/554721258593';
+const BAPTISM_WHATSAPP_URL = `${WHATSAPP_URL}?text=${encodeURIComponent(
+  'Olá! Estou visitando o site da Igreja Graça e Poder e gostaria de receber mais informações sobre o batismo. Como posso participar?',
+)}`;
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%20Vila%20Real%20Balne%C3%A1rio%20Cambori%C3%BA';
 const ASSET_ROOT = './images/site-unificado';
 const LATEST_SERVICE_VIDEO_ID = '7Yfv4lcvum8';
@@ -31,7 +34,7 @@ const schedule: ScheduleItem[] = [
   {
     day: 'Domingo',
     time: '09h e 19h',
-    title: 'Culto de Celebração e da Família',
+    title: 'Culto de Celebração',
     description: 'Um culto para toda a família, no qual caminhamos juntos para celebrar e adorar a Deus, fortalecer a fé e viver comunhão.',
     image: `${ASSET_ROOT}/domingo-culto-familia.jpeg`,
   },
@@ -39,28 +42,28 @@ const schedule: ScheduleItem[] = [
     day: 'Terça-feira',
     time: '20h',
     title: 'Reunião de Oração',
-    description: 'Um encontro dedicado à oração, à intercessão e à busca por Deus. Apresentamos nossas necessidades, agradecemos e oramos uns pelos outros.',
+    description: 'Se você deseja separar um tempo para buscar a Deus e receber oração, este encontro é para você. Juntos, apresentamos nossas necessidades, agradecemos e oramos uns pelos outros.',
     image: `${ASSET_ROOT}/oracao.png`,
   },
   {
     day: 'Sábado',
     time: '14h',
     title: 'Projeto Oficinas',
-    description: 'Aulas gratuitas de bateria, teclado e violão, abertas a toda a igreja para aprender, conviver e desenvolver novos talentos.',
+    description: 'Se você deseja aprender música, pode participar das aulas gratuitas de bateria, teclado e violão. As oficinas são abertas a toda a igreja e também oferecem um espaço de convivência e desenvolvimento de novos talentos.',
     image: `${ASSET_ROOT}/projeto-oficinas.jpg`,
   },
   {
     day: 'Sábado',
     time: '15h30 às 17h30',
     title: 'JUNAD',
-    description: 'Um culto preparado especialmente para crianças e adolescentes de 7 a 16 anos. Depois da Palavra, eles participam de pequenos grupos para compartilhar a semana, receber acolhimento e orientação e, ao final, têm um momento de diversão com os brinquedos da igreja.',
+    description: 'Se você procura um ambiente seguro e acolhedor para crianças e adolescentes de 7 a 16 anos, o JUNAD foi preparado especialmente para eles. O encontro reúne culto, pequenos grupos para compartilhar a semana e aprender sobre a Palavra de Deus, acolhimento e um momento de diversão com os brinquedos da igreja.',
     image: `${ASSET_ROOT}/junad-16x9.png`,
   },
   {
     day: 'Sábado',
     time: '19h',
     title: 'The Way',
-    description: 'O tradicional grupo de jovens da igreja, aberto a todos que se consideram jovens — dos 0 aos 100 anos — para viver fé, amizade e comunhão.',
+    description: 'Se você é jovem — ou se considera jovem, dos 0 aos 100 anos — será muito bem-vindo. O The Way é o grupo de jovens da igreja, um espaço aberto para conhecer pessoas e viver fé, amizade e comunhão.',
     image: `${ASSET_ROOT}/the-way-projecao.jpg`,
   },
 ];
@@ -71,32 +74,34 @@ type EventItem = {
   description: string;
   image: string;
   actionLabel?: string;
+  actionHref?: string;
 };
 
 const events: EventItem[] = [
   {
     title: 'Culto de Ceia',
     label: 'Mensal',
-    description: 'No segundo domingo do mês, às 09h e 19h.',
+    description: 'Você é bem-vindo para estar conosco no Culto de Ceia, realizado no segundo domingo do mês, às 09h e 19h.',
     image: `${ASSET_ROOT}/ceia.png`,
   },
   {
     title: 'Culto Fé e Poder',
     label: 'Primeiro sábado do mês',
-    description: 'Um culto focado em curas e milagres, realizado no primeiro sábado do mês, às 19h.',
+    description: 'Se você busca um momento de fé e oração por curas e milagres, venha participar conosco. O culto acontece no primeiro sábado do mês, às 19h.',
     image: `${ASSET_ROOT}/fe-e-poder.png`,
   },
   {
     title: 'Batismo',
     label: 'Celebração',
-    description: 'Quer saber como se preparar e participar do próximo batismo? Fale diretamente com a igreja.',
+    description: 'Se você deseja entender o significado do batismo, saber como se preparar ou participar da próxima celebração, fale diretamente com a igreja.',
     image: `${ASSET_ROOT}/batismo-projecao.png`,
-    actionLabel: 'Informações pelo WhatsApp',
+    actionLabel: 'Quero saber sobre o Batismo',
+    actionHref: BAPTISM_WHATSAPP_URL,
   },
   {
     title: 'Retiro da Família',
     label: '23 a 25 de outubro',
-    description: 'R$ 150 por pessoa · Crianças até 10 anos não pagam.',
+    description: 'Uma oportunidade para viver dias de comunhão e fortalecer os vínculos em família. R$ 150 por pessoa · Crianças até 10 anos não pagam.',
     image: `${ASSET_ROOT}/retiro-familia.png`,
   },
 ];
@@ -116,9 +121,9 @@ const navItems = [
   { label: 'Contato', href: '#contato' },
 ];
 
-function WhatsAppLink({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+function WhatsAppLink({ children, className = '', href = WHATSAPP_URL }: { children: React.ReactNode; className?: string; href?: string }) {
   return (
-    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={className}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
       <MessageCircle className="h-5 w-5" aria-hidden="true" />
       {children}
     </a>
@@ -343,7 +348,7 @@ export const UnifiedChurchSite: React.FC = () => {
                     <h3 className="mt-2 font-heading text-2xl font-bold">{event.title}</h3>
                     <p className="mt-3 leading-relaxed text-slate-400">{event.description}</p>
                     {event.actionLabel ? (
-                      <WhatsAppLink className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg bg-brand-primary px-5 py-3 text-sm font-bold transition hover:bg-brand-primaryHover">
+                      <WhatsAppLink href={event.actionHref} className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg bg-brand-primary px-5 py-3 text-sm font-bold transition hover:bg-brand-primaryHover">
                         {event.actionLabel}
                       </WhatsAppLink>
                     ) : null}
