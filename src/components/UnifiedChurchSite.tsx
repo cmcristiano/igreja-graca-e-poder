@@ -9,7 +9,6 @@ import {
   Menu,
   MessageCircle,
   Route,
-  UsersRound,
   X,
   Youtube,
 } from 'lucide-react';
@@ -20,38 +19,79 @@ const ASSET_ROOT = './images/site-unificado';
 const LATEST_SERVICE_VIDEO_ID = '7Yfv4lcvum8';
 const LATEST_SERVICE_URL = `https://www.youtube.com/watch?v=${LATEST_SERVICE_VIDEO_ID}`;
 
-const schedule = [
-  { day: 'Domingo', time: '09h e 19h', title: 'Culto da Família' },
-  { day: 'Terça', time: '20h', title: 'Reunião de Oração' },
-  { day: 'Sábado', time: '14h', title: 'Projeto Oficinas' },
-  { day: 'Sábado', time: '15h30 às 17h30', title: 'JUNAD' },
-  { day: 'Sábado', time: '19h', title: 'The Way' },
+type ScheduleItem = {
+  day: string;
+  time: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+const schedule: ScheduleItem[] = [
+  {
+    day: 'Domingo',
+    time: '09h e 19h',
+    title: 'Culto de Celebração e da Família',
+    description: 'Um culto para toda a família, no qual caminhamos juntos para celebrar e adorar a Deus, fortalecer a fé e viver comunhão.',
+    image: `${ASSET_ROOT}/domingo-culto-familia.jpeg`,
+  },
+  {
+    day: 'Terça-feira',
+    time: '20h',
+    title: 'Reunião de Oração',
+    description: 'Um encontro dedicado à oração, à intercessão e à busca por Deus. Apresentamos nossas necessidades, agradecemos e oramos uns pelos outros.',
+    image: `${ASSET_ROOT}/oracao.png`,
+  },
+  {
+    day: 'Sábado',
+    time: '14h',
+    title: 'Projeto Oficinas',
+    description: 'Aulas gratuitas de bateria, teclado e violão, abertas a toda a igreja para aprender, conviver e desenvolver novos talentos.',
+    image: `${ASSET_ROOT}/projeto-oficinas.jpg`,
+  },
+  {
+    day: 'Sábado',
+    time: '15h30 às 17h30',
+    title: 'JUNAD',
+    description: 'Um culto preparado especialmente para crianças e adolescentes de 7 a 16 anos. Depois da Palavra, eles participam de pequenos grupos para compartilhar a semana, receber acolhimento e orientação e, ao final, têm um momento de diversão com os brinquedos da igreja.',
+    image: `${ASSET_ROOT}/junad-16x9.png`,
+  },
+  {
+    day: 'Sábado',
+    time: '19h',
+    title: 'The Way',
+    description: 'O tradicional grupo de jovens da igreja, aberto a todos que se consideram jovens — dos 0 aos 100 anos — para viver fé, amizade e comunhão.',
+    image: `${ASSET_ROOT}/the-way-projecao.jpg`,
+  },
 ];
 
-const ministries = [
-  { title: 'Projeto Oficinas', image: `${ASSET_ROOT}/projeto-oficinas.jpg` },
-  { title: 'JUNAD', image: `${ASSET_ROOT}/junad-16x9.png` },
-  { title: 'The Way', image: `${ASSET_ROOT}/the-way-projecao.jpg` },
-];
+type EventItem = {
+  title: string;
+  label: string;
+  description: string;
+  image: string;
+  actionLabel?: string;
+};
 
-const events = [
+const events: EventItem[] = [
   {
     title: 'Culto de Ceia',
     label: 'Mensal',
-    description: 'Geralmente no segundo domingo do mês, às 09h e 19h.',
+    description: 'No segundo domingo do mês, às 09h e 19h.',
     image: `${ASSET_ROOT}/ceia.png`,
   },
   {
     title: 'Culto Fé e Poder',
-    label: 'Evento especial',
-    description: 'Confirme a próxima data pelo WhatsApp.',
+    label: 'Primeiro sábado do mês',
+    description: 'Um culto focado em curas e milagres, realizado no primeiro sábado do mês, às 19h.',
     image: `${ASSET_ROOT}/fe-e-poder.png`,
   },
   {
     title: 'Batismo',
     label: 'Celebração',
-    description: 'Acompanhe os canais da igreja para as próximas datas.',
+    description: 'Quer saber como se preparar e participar do próximo batismo? Fale diretamente com a igreja.',
     image: `${ASSET_ROOT}/batismo-projecao.png`,
+    actionLabel: 'Informações pelo WhatsApp',
   },
   {
     title: 'Retiro da Família',
@@ -70,9 +110,8 @@ const channels = [
 ];
 
 const navItems = [
-  { label: 'Programação', href: '#programacao' },
   { label: 'Último culto', href: '#ultimo-culto' },
-  { label: 'Ministérios', href: '#ministerios' },
+  { label: 'Programação', href: '#programacao' },
   { label: 'Eventos', href: '#eventos' },
   { label: 'Contato', href: '#contato' },
 ];
@@ -83,6 +122,30 @@ function WhatsAppLink({ children, className = '' }: { children: React.ReactNode;
       <MessageCircle className="h-5 w-5" aria-hidden="true" />
       {children}
     </a>
+  );
+}
+
+function ScheduleCard({ item, featured = false }: { item: ScheduleItem; featured?: boolean }) {
+  return (
+    <article
+      className={`overflow-hidden rounded-2xl border border-white/10 bg-[#0d1321] shadow-lg shadow-black/20 ${
+        featured ? 'lg:col-span-2 lg:grid lg:grid-cols-[1.16fr_0.84fr]' : ''
+      }`}
+    >
+      <img
+        src={item.image}
+        alt={`Arte de ${item.title}`}
+        loading="lazy"
+        className={`w-full bg-[#080c17] object-contain ${featured ? 'aspect-video lg:h-full lg:min-h-[360px]' : 'aspect-video'}`}
+      />
+      <div className={`flex flex-col justify-center p-6 sm:p-8 ${featured ? 'lg:p-10' : ''}`}>
+        <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-gold">
+          {item.day} · {item.time}
+        </p>
+        <h3 className="mt-3 font-heading text-2xl font-bold text-white sm:text-3xl">{item.title}</h3>
+        <p className="mt-4 leading-relaxed text-slate-300">{item.description}</p>
+      </div>
+    </article>
   );
 }
 
@@ -189,7 +252,7 @@ export const UnifiedChurchSite: React.FC = () => {
                 className="col-span-2 ml-auto aspect-video w-[82%] rounded-2xl border border-brand-gold/30 object-cover shadow-2xl shadow-black/50"
               />
               <img
-                src={`${ASSET_ROOT}/domingo-culto-familia.png`}
+                src={`${ASSET_ROOT}/domingo-culto-familia.jpeg`}
                 alt="Culto da Família — domingo às 09h e 19h"
                 className="aspect-video w-full rounded-2xl border border-white/15 bg-[#08101a] object-contain shadow-xl shadow-black/40"
               />
@@ -198,33 +261,6 @@ export const UnifiedChurchSite: React.FC = () => {
                 alt="The Way — sábado às 19h"
                 className="aspect-video w-full rounded-2xl border border-white/15 object-cover shadow-xl shadow-black/40"
               />
-            </div>
-          </div>
-        </section>
-
-        <section id="programacao" className="scroll-mt-20 border-b border-white/10 bg-[#080c17] py-20 sm:py-28">
-          <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
-            <div>
-              <h2 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
-                Programação semanal<span className="text-brand-primary">.</span>
-              </h2>
-              <p className="mt-4 text-lg text-slate-400">Encontros para toda a família.</p>
-
-              <div className="mt-10 border-l border-brand-gold/60 pl-7">
-                {schedule.map((item) => (
-                  <article key={`${item.day}-${item.time}-${item.title}`} className="relative grid gap-2 border-b border-white/10 py-5 sm:grid-cols-[110px_155px_1fr] sm:items-center">
-                    <span className="absolute -left-[35px] top-7 h-3 w-3 rounded-full border-2 border-brand-gold bg-[#080c17]" />
-                    <strong className="text-white">{item.day}</strong>
-                    <span className="text-sm font-semibold text-brand-gold">{item.time}</span>
-                    <span className="text-slate-200">{item.title}</span>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid content-start gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-              <img src={`${ASSET_ROOT}/domingo-culto-familia.png`} alt="Arte do Culto da Família" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 bg-[#08101a] object-contain" />
-              <img src={`${ASSET_ROOT}/oracao.png`} alt="Arte da Reunião de Oração" loading="lazy" className="aspect-video w-full rounded-2xl border border-white/10 object-cover" />
             </div>
           </div>
         </section>
@@ -265,37 +301,20 @@ export const UnifiedChurchSite: React.FC = () => {
           </div>
         </section>
 
-        <section id="ministerios" className="scroll-mt-20 bg-white py-20 text-slate-950 sm:py-28">
+        <section id="programacao" className="scroll-mt-20 border-b border-white/10 bg-[#080c17] py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
               <h2 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
-                Ministérios e grupos<span className="text-brand-primary">.</span>
+                Programação da igreja<span className="text-brand-primary">.</span>
               </h2>
-              <p className="mt-4 text-lg text-slate-600">Caminhos para conviver, aprender, servir e crescer em fé.</p>
+              <p className="mt-4 text-lg leading-relaxed text-slate-400">
+                Conheça cada encontro, para quem ele foi preparado e como você pode participar.
+              </p>
             </div>
 
-            <div className="mt-12 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 text-white shadow-xl">
-              <div className="grid items-stretch lg:grid-cols-[0.9fr_1.1fr]">
-                <div className="flex flex-col justify-center p-8 sm:p-12">
-                  <UsersRound className="h-10 w-10 text-brand-gold" />
-                  <h3 className="mt-6 font-heading text-3xl font-bold">Grupos Familiares</h3>
-                  <p className="mt-4 max-w-lg leading-relaxed text-slate-300">
-                    Um lugar simples e acolhedor para conhecer pessoas e caminhar junto durante a semana.
-                  </p>
-                  <WhatsAppLink className="mt-8 inline-flex w-fit items-center gap-2 rounded-lg bg-brand-primary px-5 py-3 font-bold transition hover:bg-brand-primaryHover">
-                    Falar com a igreja
-                  </WhatsAppLink>
-                </div>
-                <img src={`${ASSET_ROOT}/grupos-familiares.png`} alt="Arte dos Grupos Familiares" loading="lazy" className="h-full min-h-72 w-full object-cover" />
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-6 md:grid-cols-3">
-              {ministries.map((ministry) => (
-                <article key={ministry.title} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                  <img src={ministry.image} alt={`Arte do ${ministry.title}`} loading="lazy" className="aspect-video w-full object-cover" />
-                  <h3 className="p-6 font-heading text-xl font-bold">{ministry.title}</h3>
-                </article>
+            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+              {schedule.map((item, index) => (
+                <ScheduleCard key={item.title} item={item} featured={index === 0} />
               ))}
             </div>
           </div>
@@ -323,6 +342,11 @@ export const UnifiedChurchSite: React.FC = () => {
                     <span className="text-xs font-bold uppercase tracking-[0.18em] text-brand-gold">{event.label}</span>
                     <h3 className="mt-2 font-heading text-2xl font-bold">{event.title}</h3>
                     <p className="mt-3 leading-relaxed text-slate-400">{event.description}</p>
+                    {event.actionLabel ? (
+                      <WhatsAppLink className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg bg-brand-primary px-5 py-3 text-sm font-bold transition hover:bg-brand-primaryHover">
+                        {event.actionLabel}
+                      </WhatsAppLink>
+                    ) : null}
                   </div>
                 </article>
               ))}
