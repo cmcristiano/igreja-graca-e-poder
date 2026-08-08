@@ -13,10 +13,20 @@ import {
   Youtube,
 } from 'lucide-react';
 
-const WHATSAPP_URL = 'https://wa.me/554721258593';
-const BAPTISM_WHATSAPP_URL = `${WHATSAPP_URL}?text=${encodeURIComponent(
+const WHATSAPP_BASE_URL = 'https://wa.me/554721258593';
+const createWhatsAppUrl = (message: string) => `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(message)}`;
+const WHATSAPP_URL = createWhatsAppUrl(
+  'Olá! Estou visitando o site da Igreja Graça e Poder e gostaria de receber mais informações sobre a igreja.',
+);
+const BAPTISM_WHATSAPP_URL = createWhatsAppUrl(
   'Olá! Estou visitando o site da Igreja Graça e Poder e gostaria de receber mais informações sobre o batismo. Como posso participar?',
-)}`;
+);
+const RETREAT_WHATSAPP_URL = createWhatsAppUrl(
+  'Olá! Estou visitando o site da Igreja Graça e Poder e gostaria de saber mais sobre o Retiro da Família. Poderiam me enviar as informações?',
+);
+const SCHEDULE_WHATSAPP_URL = createWhatsAppUrl(
+  'Olá! Estou visitando o site da Igreja Graça e Poder e gostaria de confirmar a programação dos cultos e eventos.',
+);
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%20Vila%20Real%20Balne%C3%A1rio%20Cambori%C3%BA';
 const ASSET_ROOT = './images/site-unificado';
 const LATEST_SERVICE_VIDEO_ID = '7Yfv4lcvum8';
@@ -103,6 +113,8 @@ const events: EventItem[] = [
     label: '23 a 25 de outubro',
     description: 'Uma oportunidade para viver dias de comunhão e fortalecer os vínculos em família. R$ 150 por pessoa · Crianças até 10 anos não pagam.',
     image: `${ASSET_ROOT}/retiro-familia.png`,
+    actionLabel: 'Quero saber mais sobre o Retiro',
+    actionHref: RETREAT_WHATSAPP_URL,
   },
 ];
 
@@ -357,7 +369,7 @@ export const UnifiedChurchSite: React.FC = () => {
               ))}
             </div>
 
-            <WhatsAppLink className="mt-10 inline-flex items-center gap-2 rounded-lg bg-brand-primary px-6 py-4 font-bold transition hover:bg-brand-primaryHover">
+            <WhatsAppLink href={SCHEDULE_WHATSAPP_URL} className="mt-10 inline-flex items-center gap-2 rounded-lg bg-brand-primary px-6 py-4 font-bold transition hover:bg-brand-primaryHover">
               Confirmar programação
             </WhatsAppLink>
           </div>
