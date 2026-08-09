@@ -29,7 +29,7 @@ const SCHEDULE_WHATSAPP_URL = createWhatsAppUrl(
 );
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%20Vila%20Real%20Balne%C3%A1rio%20Cambori%C3%BA';
 const ASSET_ROOT = './images/site-unificado';
-const LATEST_SERVICE_VIDEO_ID = '7Yfv4lcvum8';
+const LATEST_SERVICE_VIDEO_ID = 'a3_MIoRy4ZU';
 const LATEST_SERVICE_URL = `https://www.youtube.com/watch?v=${LATEST_SERVICE_VIDEO_ID}`;
 
 type ScheduleItem = {
