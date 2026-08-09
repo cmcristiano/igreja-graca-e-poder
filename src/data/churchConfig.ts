@@ -65,7 +65,7 @@ export const churchConfig: ChurchConfig = {
       horario: "19h",
       descricao: "",
       imagemUrl: "./images/cultos/culto-da-familia.jpg",
-      endereco: "Rua Dom Henrique, 111 - Vila Real - Balneário Camboriú",
+      endereco: "Rua Dom Henrique, 111 - Vila Real - Balneário Camboriú / SC",
       destaque: true
     },
     {
@@ -77,7 +77,7 @@ export const churchConfig: ChurchConfig = {
       versiculo: "Se creres, verás a glória de Deus",
       referenciaBiblica: "João 11:40",
       imagemUrl: "./images/cultos/culto-fe-e-poder.png",
-      endereco: "Rua Dom Henrique, 111 - Vila Real - Balneário Camboriú",
+      endereco: "Rua Dom Henrique, 111 - Vila Real - Balneário Camboriú / SC",
       destaque: false
     },
     {
@@ -89,7 +89,7 @@ export const churchConfig: ChurchConfig = {
       versiculo: "Nunca deixem de orar",
       referenciaBiblica: "1 Tessalonicenses 5:17",
       imagemUrl: "./images/cultos/reuniao-de-oracao.png",
-      endereco: "Rua Dom Henrique, 111 - Vila Real - Balneário Camboriú",
+      endereco: "Rua Dom Henrique, 111 - Vila Real - Balneário Camboriú / SC",
       destaque: false
     }
   ],

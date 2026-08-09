@@ -66,7 +66,7 @@ const schedule: ScheduleItem[] = [
     day: 'Sábado',
     time: '15h30 às 17h30',
     title: 'JUNAD',
-    description: 'Culto para juniores e adolescentes de 7 a 16 anos. O encontro reúne Palavra de Deus, pequenos grupos para compartilhar a semana, acolhimento, orientação e um momento de diversão com os brinquedos da igreja.',
+    description: 'Culto para juniores e adolescentes de 7 a 16 anos. O encontro reúne Palavra de Deus, pequenos grupos para compartilhar a semana, acolhimento, orientação e um momento de diversão.',
     image: `${ASSET_ROOT}/junad-16x9.png`,
   },
   {
@@ -180,7 +180,7 @@ export const UnifiedChurchSite: React.FC = () => {
               className="h-9 w-auto object-contain sm:h-10"
             />
             <span className="hidden border-l border-white/20 pl-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-300 xl:block">
-              Balneário Camboriú
+              Balneário Camboriú · SC
             </span>
           </a>
 
@@ -258,7 +258,7 @@ export const UnifiedChurchSite: React.FC = () => {
               </div>
               <p className="mt-8 flex items-start gap-3 text-sm text-slate-300">
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold" />
-                Rua Dom Henrique, 111 · Vila Real · Balneário Camboriú
+                Rua Dom Henrique, 111 · Vila Real · Balneário Camboriú · SC
               </p>
             </div>
 
@@ -383,7 +383,7 @@ export const UnifiedChurchSite: React.FC = () => {
               </h2>
               <p className="mt-6 flex items-start gap-3 text-lg text-slate-200">
                 <MapPin className="mt-0.5 h-6 w-6 shrink-0 text-brand-gold" />
-                Rua Dom Henrique, 111 · Vila Real · Balneário Camboriú
+                Rua Dom Henrique, 111 · Vila Real · Balneário Camboriú · SC
               </p>
               <p className="mt-3 max-w-2xl leading-relaxed text-slate-400">
                 Fale com a igreja pelo WhatsApp para confirmar cultos, grupos, eventos e atendimento.
@@ -434,7 +434,7 @@ export const UnifiedChurchSite: React.FC = () => {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <img src={`${ASSET_ROOT}/logo-graca-e-poder-white.png`} alt="Ministério Internacional Graça e Poder" className="h-9 w-auto self-start object-contain" />
             <div className="border-white/15 text-sm text-slate-400 sm:border-l sm:pl-5">
-              <strong className="block text-white">Balneário Camboriú</strong>
+              <strong className="block text-white">Balneário Camboriú · SC</strong>
               Rua Dom Henrique, 111 · Vila Real
             </div>
           </div>
