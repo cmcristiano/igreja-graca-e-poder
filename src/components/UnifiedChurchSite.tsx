@@ -434,7 +434,7 @@ export const UnifiedChurchSite: React.FC = () => {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <img src={`${ASSET_ROOT}/logo-graca-e-poder-white.png`} alt="Ministério Internacional Graça e Poder" className="h-9 w-auto self-start object-contain" />
             <div className="border-white/15 text-sm text-slate-400 sm:border-l sm:pl-5">
-              <strong className="block text-white">Balneário Camboriú · SC</strong>
+              <strong className="block text-white">Endereço</strong>
               Rua Dom Henrique, 111 · Vila Real · Balneário Camboriú · SC
             </div>
           </div>
