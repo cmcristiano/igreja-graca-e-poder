@@ -28,6 +28,31 @@ export const App: React.FC = () => {
             width: '100%',
           }}
         />
+        <a
+          aria-label="Como chegar à Igreja Graça e Poder pelo Google Maps"
+          href="https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%2C%20Vila%20Real%2C%20Balne%C3%A1rio%20Cambori%C3%BA%20SC"
+          rel="noreferrer"
+          target="_blank"
+          style={{
+            background: 'rgba(16, 12, 8, 0.88)',
+            border: '1px solid #d9aa50',
+            borderRadius: '999px',
+            bottom: 'clamp(1rem, 3vw, 2rem)',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.28)',
+            color: '#f6d68d',
+            fontFamily: 'Arial, sans-serif',
+            fontSize: 'clamp(0.8rem, 2.5vw, 1rem)',
+            fontWeight: 700,
+            letterSpacing: '0.02em',
+            padding: '0.72rem 1rem',
+            position: 'absolute',
+            right: 'clamp(1rem, 3vw, 2rem)',
+            textDecoration: 'none',
+            zIndex: 1,
+          }}
+        >
+          📍 Como chegar
+        </a>
       </main>
     );
   }
