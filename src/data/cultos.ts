@@ -7,6 +7,12 @@ export type Culto = {
 
 export const cultos: Culto[] = [
   {
+    id: 'mtRsqFRepfM',
+    titulo: 'Culto de Celebração',
+    data: '2026-09-13',
+    youtubeUrl: 'https://youtube.com/live/mtRsqFRepfM?feature=share',
+  },
+  {
     id: 'CBbx5fQbaHc',
     titulo: 'Culto de Celebração',
     data: '2026-09-06',
