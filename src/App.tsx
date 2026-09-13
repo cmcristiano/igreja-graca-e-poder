@@ -3,6 +3,14 @@ import { CultosPage } from './components/CultosPage';
 import { UnifiedChurchSite } from './components/UnifiedChurchSite';
 
 export const App: React.FC = () => {
+  const params = new URLSearchParams(window.location.search);
+  const redirectedPath = params.get('redirect');
+
+  if (redirectedPath) {
+    const safePath = redirectedPath.startsWith('/') ? redirectedPath : '/';
+    window.history.replaceState(null, '', safePath);
+  }
+
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
 
   if (path === '/culto') {
