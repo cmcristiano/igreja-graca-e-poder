@@ -12,6 +12,12 @@ export const cultos: Culto[] = [
     data: '2026-09-06',
     youtubeUrl: 'https://youtube.com/live/CBbx5fQbaHc?feature=share',
   },
+  {
+    id: '-yO3X0wNBHA',
+    titulo: 'BENEFÍCIOS DA FIDELIDADE A DEUS = AP SAULO JORGE - GRAÇA E PODER',
+    data: '2026-08-30',
+    youtubeUrl: 'https://www.youtube.com/live/-yO3X0wNBHA?is=yIhJWFN0YJXoSSGG',
+  },
 ];
 
 export function getYouTubeVideoId(url: string): string | null {
