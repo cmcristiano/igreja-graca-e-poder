@@ -5,7 +5,14 @@ export type Culto = {
   youtubeUrl: string;
 };
 
-export const cultos: Culto[] = [];
+export const cultos: Culto[] = [
+  {
+    id: 'CBbx5fQbaHc',
+    titulo: 'Culto de Celebração',
+    data: '2026-09-06',
+    youtubeUrl: 'https://youtube.com/live/CBbx5fQbaHc?feature=share',
+  },
+];
 
 export function getYouTubeVideoId(url: string): string | null {
   try {
