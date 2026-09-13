@@ -12,6 +12,7 @@ import {
   X,
   Youtube,
 } from 'lucide-react';
+import { cultos, getYouTubeVideoId } from '../data/cultos';
 
 const WHATSAPP_BASE_URL = 'https://wa.me/554721258593';
 const createWhatsAppUrl = (message: string) => `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(message)}`;
@@ -29,8 +30,8 @@ const SCHEDULE_WHATSAPP_URL = createWhatsAppUrl(
 );
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%20Vila%20Real%20Balne%C3%A1rio%20Cambori%C3%BA';
 const ASSET_ROOT = './images/site-unificado';
-const LATEST_SERVICE_VIDEO_ID = 'a3_MIoRy4ZU';
-const LATEST_SERVICE_URL = `https://www.youtube.com/watch?v=${LATEST_SERVICE_VIDEO_ID}`;
+const latestService = [...cultos].sort((a, b) => b.data.localeCompare(a.data))[0];
+const latestServiceVideoId = latestService ? getYouTubeVideoId(latestService.youtubeUrl) : null;
 
 type ScheduleItem = {
   day: string;
@@ -282,6 +283,7 @@ export const UnifiedChurchSite: React.FC = () => {
           </div>
         </section>
 
+        {latestService && latestServiceVideoId ? (
         <section id="ultimo-culto" className="scroll-mt-20 border-b border-white/10 bg-[#050812] py-20 sm:py-28">
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:gap-14 lg:px-8">
             <div>
@@ -293,7 +295,7 @@ export const UnifiedChurchSite: React.FC = () => {
                 Acompanhe a mensagem mais recente do Ministério Internacional Graça e Poder.
               </p>
               <a
-                href={LATEST_SERVICE_URL}
+                href={latestService.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-flex items-center gap-2 rounded-lg border border-brand-gold/70 px-6 py-4 font-bold text-white transition hover:bg-brand-gold/10"
@@ -307,7 +309,7 @@ export const UnifiedChurchSite: React.FC = () => {
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-black/40">
               <iframe
                 className="aspect-video w-full border-0"
-                src={`https://www.youtube-nocookie.com/embed/${LATEST_SERVICE_VIDEO_ID}`}
+                src={`https://www.youtube-nocookie.com/embed/${latestServiceVideoId}`}
                 title="Último culto do Ministério Internacional Graça e Poder"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -317,6 +319,7 @@ export const UnifiedChurchSite: React.FC = () => {
             </div>
           </div>
         </section>
+        ) : null}
 
         <section id="programacao" className="scroll-mt-20 border-b border-white/10 bg-[#080c17] py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
