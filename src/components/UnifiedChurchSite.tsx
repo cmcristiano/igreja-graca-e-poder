@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
   ExternalLink,
   Facebook,
   Images,
@@ -143,6 +147,81 @@ function WhatsAppLink({ children, className = '', href = WHATSAPP_URL }: { child
   );
 }
 
+function ScheduleCarousel() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReducedMotion(preference.matches);
+    update();
+    preference.addEventListener('change', update);
+    return () => preference.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    if (paused || hovered || reducedMotion) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setActive((index) => (index + 1) % schedule.length);
+    }, 6000);
+    return () => window.clearInterval(timer);
+  }, [paused, hovered, reducedMotion]);
+
+  const move = (offset: number) => {
+    setPaused(true);
+    setActive((index) => (index + offset + schedule.length) % schedule.length);
+  };
+  const controlClass = 'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-brand-gold transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold';
+
+  return (
+    <div className="mx-auto w-full min-w-0 max-w-lg" role="region" aria-roledescription="carrossel" aria-label="Programação da igreja"
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      onFocusCapture={() => setPaused(true)}>
+      <div className="relative aspect-video w-full touch-pan-y overflow-hidden rounded-lg border border-brand-gold/30 bg-[#080c17]"
+        onTouchStart={(event) => {
+          const touch = event.touches[0];
+          touchStart.current = { x: touch.clientX, y: touch.clientY };
+          setPaused(true);
+        }}
+        onTouchCancel={() => { touchStart.current = null; }}
+        onTouchEnd={(event) => {
+          const start = touchStart.current;
+          touchStart.current = null;
+          if (!start) return;
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - start.x;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(touch.clientY - start.y)) move(dx < 0 ? 1 : -1);
+        }}>
+        {schedule.map((item, index) => (
+          <div key={item.title} role="group" aria-roledescription="slide" aria-label={`${index + 1} de ${schedule.length}`} aria-hidden={index !== active}
+            className={`absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none ${index === active ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+            <img src={item.image} alt={`${item.title} — ${item.day}, ${item.time}`} draggable={false} className="h-full w-full object-contain" />
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex items-center justify-between gap-1">
+        <button type="button" className={controlClass} aria-label="Arte anterior" title="Arte anterior" onClick={() => move(-1)}><ChevronLeft aria-hidden="true" size={22} /></button>
+        <div className="flex min-w-0 items-center">
+          {schedule.map((item, index) => (
+            <button key={item.title} type="button" aria-label={`Mostrar ${item.title}`} title={item.title} aria-current={index === active ? 'true' : undefined}
+              className="flex h-11 w-8 items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold"
+              onClick={() => { setPaused(true); setActive(index); }}>
+              <span className={`h-2 w-2 rounded-full ${index === active ? 'bg-brand-gold' : 'bg-white/30'}`} />
+            </button>
+          ))}
+        </div>
+        <button type="button" className={controlClass} aria-label="Próxima arte" title="Próxima arte" onClick={() => move(1)}><ChevronRight aria-hidden="true" size={22} /></button>
+        {!reducedMotion ? <button type="button" className={controlClass} aria-label={paused ? 'Retomar troca automática' : 'Pausar troca automática'} title={paused ? 'Retomar troca automática' : 'Pausar troca automática'} onClick={() => setPaused((value) => !value)}>
+          {paused ? <Play aria-hidden="true" size={18} /> : <Pause aria-hidden="true" size={18} />}
+        </button> : null}
+      </div>
+    </div>
+  );
+}
+
 function ScheduleCard({ item, featured = false }: { item: ScheduleItem; featured?: boolean }) {
   return (
     <article
@@ -263,23 +342,7 @@ export const UnifiedChurchSite: React.FC = () => {
               </p>
             </div>
 
-            <div className="mx-auto hidden w-full max-w-lg grid-cols-2 gap-4 md:grid">
-              <img
-                src={`${ASSET_ROOT}/oracao.png`}
-                alt="Reunião de Oração — terça-feira às 20h"
-                className="col-span-2 ml-auto aspect-video w-[82%] rounded-2xl border border-brand-gold/30 object-cover shadow-2xl shadow-black/50"
-              />
-              <img
-                src={`${ASSET_ROOT}/domingo-culto-familia.jpeg`}
-                alt="Culto da Família — domingo às 09h e 19h"
-                className="aspect-video w-full rounded-2xl border border-white/15 bg-[#08101a] object-contain shadow-xl shadow-black/40"
-              />
-              <img
-                src={`${ASSET_ROOT}/the-way-projecao.jpg`}
-                alt="The Way — sábado às 19h"
-                className="aspect-video w-full rounded-2xl border border-white/15 object-cover shadow-xl shadow-black/40"
-              />
-            </div>
+            <ScheduleCarousel />
           </div>
         </section>
 
