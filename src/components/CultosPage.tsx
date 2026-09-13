@@ -1,5 +1,14 @@
 import React from 'react';
-import { ArrowLeft, CalendarDays, ExternalLink, PlayCircle } from 'lucide-react';
+import {
+  ArrowLeft,
+  CalendarDays,
+  ExternalLink,
+  Facebook,
+  Instagram,
+  MessageCircle,
+  PlayCircle,
+  Youtube,
+} from 'lucide-react';
 import { cultos, getYouTubeVideoId } from '../data/cultos';
 
 function formatDate(date: string) {
@@ -10,9 +19,36 @@ function formatDate(date: string) {
   );
 }
 
+const socialLinks = [
+  {
+    label: 'YouTube',
+    href: 'https://youtube.com/@gracaepoderbc?si=BKyqACLfhbeSSGDd',
+    icon: Youtube,
+  },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/gracaepoderbc/',
+    icon: Facebook,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/gracaepoderbc',
+    icon: Instagram,
+  },
+  {
+    label: 'WhatsApp',
+    href: 'https://wa.me/554721258593',
+    icon: MessageCircle,
+  },
+];
+
 export const CultosPage: React.FC = () => {
-  const orderedCultos = [...cultos].sort((a, b) => b.data.localeCompare(a.data));
-  const latest = orderedCultos[0];
+  const latestThree = [...cultos]
+    .sort((a, b) => b.data.localeCompare(a.data))
+    .slice(0, 3);
+
+  const latest = latestThree[0];
+  const remainingCultos = latestThree.slice(1);
   const latestId = latest ? getYouTubeVideoId(latest.youtubeUrl) : null;
 
   return (
@@ -73,43 +109,47 @@ export const CultosPage: React.FC = () => {
           </div>
         ) : null}
 
-        {orderedCultos.length > 0 ? (
+        {latestThree.length > 0 ? (
           <div>
-            <h2 className="mb-6 text-2xl font-bold">Últimos cultos</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {orderedCultos.map((culto) => {
-                const videoId = getYouTubeVideoId(culto.youtubeUrl);
-                if (!videoId) return null;
+            {remainingCultos.length > 0 ? (
+              <>
+                <h2 className="mb-6 text-2xl font-bold">Cultos anteriores</h2>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  {remainingCultos.map((culto) => {
+                    const videoId = getYouTubeVideoId(culto.youtubeUrl);
+                    if (!videoId) return null;
 
-                return (
-                  <a
-                    key={culto.id}
-                    href={culto.youtubeUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition hover:-translate-y-1 hover:border-white/20"
-                  >
-                    <div className="relative aspect-video overflow-hidden bg-black">
-                      <img
-                        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
-                        alt={culto.titulo}
-                        className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 transition group-hover:bg-black/25 group-hover:opacity-100">
-                        <PlayCircle size={48} />
-                      </div>
-                    </div>
-                    <div className="p-5">
-                      <h3 className="text-lg font-bold leading-snug">{culto.titulo}</h3>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-white/50">
-                        <CalendarDays size={16} />
-                        {formatDate(culto.data)}
-                      </div>
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
+                    return (
+                      <a
+                        key={culto.id}
+                        href={culto.youtubeUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition hover:-translate-y-1 hover:border-white/20"
+                      >
+                        <div className="relative aspect-video overflow-hidden bg-black">
+                          <img
+                            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+                            alt={culto.titulo}
+                            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 transition group-hover:bg-black/25 group-hover:opacity-100">
+                            <PlayCircle size={48} />
+                          </div>
+                        </div>
+                        <div className="p-5">
+                          <h3 className="text-lg font-bold leading-snug">{culto.titulo}</h3>
+                          <div className="mt-3 flex items-center gap-2 text-sm text-white/50">
+                            <CalendarDays size={16} />
+                            {formatDate(culto.data)}
+                          </div>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </>
+            ) : null}
           </div>
         ) : (
           <div className="rounded-3xl border border-dashed border-white/15 bg-white/[0.03] px-6 py-16 text-center">
@@ -121,6 +161,37 @@ export const CultosPage: React.FC = () => {
           </div>
         )}
       </section>
+
+      <footer className="border-t border-white/10 bg-black/25">
+        <div className="mx-auto max-w-6xl px-5 py-10">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+            <div className="text-center md:text-left">
+              <p className="font-bold">Ministério Internacional Graça e Poder</p>
+              <p className="mt-1 text-sm text-white/50">Acompanhe nossas redes sociais</p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/75 transition hover:-translate-y-0.5 hover:border-amber-300/50 hover:text-amber-300"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <p className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/35">
+            Rua Dom Henrique, 111 · Vila Real · Balneário Camboriú-SC
+          </p>
+        </div>
+      </footer>
     </main>
   );
 };
