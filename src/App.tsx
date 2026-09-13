@@ -1,7 +1,14 @@
 import React from 'react';
+import { CultosPage } from './components/CultosPage';
 import { UnifiedChurchSite } from './components/UnifiedChurchSite';
 
 export const App: React.FC = () => {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+  if (path === '/culto') {
+    return <CultosPage />;
+  }
+
   const isMaintenanceMode = true;
 
   if (isMaintenanceMode) {
