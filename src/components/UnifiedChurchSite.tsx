@@ -32,6 +32,9 @@ const RETREAT_WHATSAPP_URL = createWhatsAppUrl(
 const SCHEDULE_WHATSAPP_URL = createWhatsAppUrl(
   'Olá! Estou visitando o site da Igreja Graça e Poder e gostaria de confirmar a programação dos cultos e eventos.',
 );
+const ANNIVERSARY_WHATSAPP_URL = createWhatsAppUrl(
+  'Olá! Gostaria de receber mais informações sobre o Aniversário Graça e Poder, dias 03 e 04 de outubro.',
+);
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua%20Dom%20Henrique%20111%20Vila%20Real%20Balne%C3%A1rio%20Cambori%C3%BA';
 const ASSET_ROOT = './images/site-unificado';
 const latestService = [...cultos].sort((a, b) => b.data.localeCompare(a.data))[0];
@@ -343,6 +346,40 @@ export const UnifiedChurchSite: React.FC = () => {
             </div>
 
             <ScheduleCarousel />
+          </div>
+        </section>
+
+        <section className="border-b border-white/10 bg-[#080c17] py-16 sm:py-20" aria-labelledby="aniversario-title">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Evento em destaque</span>
+              <h2 id="aniversario-title" className="mt-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+                Aniversário Graça e Poder<span className="text-brand-primary">.</span>
+              </h2>
+              <p className="mt-5 text-xl font-bold text-white">03 e 04 de outubro de 2026</p>
+              <p className="mt-4 max-w-xl leading-relaxed text-slate-400">
+                Dois dias especiais de celebração. Acompanhe o vídeo e fale com a igreja para receber mais informações.
+              </p>
+              <WhatsAppLink
+                href={ANNIVERSARY_WHATSAPP_URL}
+                className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-primary px-6 py-4 font-bold transition hover:bg-brand-primaryHover"
+              >
+                Quero mais informações
+              </WhatsAppLink>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-brand-gold/30 bg-black shadow-2xl shadow-black/40">
+              <video
+                className="aspect-video w-full bg-black object-contain"
+                src="./videos/aniversario-2026.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Vídeo do aniversário da Igreja Graça e Poder"
+              />
+            </div>
           </div>
         </section>
 
