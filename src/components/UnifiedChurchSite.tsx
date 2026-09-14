@@ -312,7 +312,41 @@ export const UnifiedChurchSite: React.FC = () => {
       </header>
 
       <main>
-        <section id="inicio" className="relative min-h-[760px] scroll-mt-20 overflow-hidden border-b border-white/10 pt-[76px]">
+        <section className="border-b border-white/10 bg-[#080c17] pb-14 pt-[108px] sm:pb-20 sm:pt-[124px]" aria-labelledby="destaque-title">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Destaque especial</span>
+              <h2 id="destaque-title" className="mt-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+                Uma celebração especial<span className="text-brand-primary">.</span>
+              </h2>
+              <p className="mt-5 text-xl font-bold text-white">03 e 04 de outubro de 2026</p>
+              <p className="mt-4 max-w-xl leading-relaxed text-slate-400">
+                Dois dias especiais para celebrarmos juntos. Fale com a igreja para receber mais informações.
+              </p>
+              <WhatsAppLink
+                href={ANNIVERSARY_WHATSAPP_URL}
+                className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-primary px-6 py-4 font-bold transition hover:bg-brand-primaryHover"
+              >
+                Quero mais informações
+              </WhatsAppLink>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-brand-gold/30 bg-black shadow-2xl shadow-black/40">
+              <video
+                className="aspect-video w-full bg-black object-contain"
+                src="./videos/aniversario-2026.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Destaque animado da celebração especial da Igreja Graça e Poder"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section id="inicio" className="relative min-h-[760px] scroll-mt-20 overflow-hidden border-b border-white/10">
           <img
             src={`${ASSET_ROOT}/fe-e-poder.png`}
             alt=""
@@ -346,40 +380,6 @@ export const UnifiedChurchSite: React.FC = () => {
             </div>
 
             <ScheduleCarousel />
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-[#080c17] py-16 sm:py-20" aria-labelledby="aniversario-title">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Evento em destaque</span>
-              <h2 id="aniversario-title" className="mt-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
-                Aniversário Graça e Poder<span className="text-brand-primary">.</span>
-              </h2>
-              <p className="mt-5 text-xl font-bold text-white">03 e 04 de outubro de 2026</p>
-              <p className="mt-4 max-w-xl leading-relaxed text-slate-400">
-                Dois dias especiais de celebração. Acompanhe o vídeo e fale com a igreja para receber mais informações.
-              </p>
-              <WhatsAppLink
-                href={ANNIVERSARY_WHATSAPP_URL}
-                className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-primary px-6 py-4 font-bold transition hover:bg-brand-primaryHover"
-              >
-                Quero mais informações
-              </WhatsAppLink>
-            </div>
-
-            <div className="overflow-hidden rounded-2xl border border-brand-gold/30 bg-black shadow-2xl shadow-black/40">
-              <video
-                className="aspect-video w-full bg-black object-contain"
-                src="./videos/aniversario-2026.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Vídeo do aniversário da Igreja Graça e Poder"
-              />
-            </div>
           </div>
         </section>
 
